@@ -1,0 +1,117 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int num_semestres=0;
+	cout<<"Ingrese el numero de semestres"<<endl;
+	cin>>num_semestres;
+	
+	for(int a=1;a<=num_semestres;a++){
+    std::string lugar="";
+    
+	    if (a == 1 || a == 3) lugar = "er";
+		else if (a == 2) lugar = "do";
+		else if (a == 4 || a == 5 || a == 6) lugar = "to";
+		else if (a == 7 || a == 10) lugar = "mo";
+		else if (a == 8 || a == 11 || a == 12) lugar = "vo";
+		else if (a == 9) lugar = "no";
+		else lugar = "";
+  	  
+	cout<< "CALIFICACIONES "<<a<<lugar<<" SEMESTRE"<<endl;
+		
+	int num_materias=0;
+	cout<<"Ingrese el numero de materias: "<< endl;
+	cin>>num_materias;
+	
+    //vector<vector<float>> cal(7,vector<float>(3));
+    float cal[num_materias][3];
+    string materias[num_materias];
+    float promedios[num_materias] = {0};
+    float suma = 0;
+    float mult =0;
+    int entero;
+    float decimal;
+    
+    
+
+    //ingresar materias
+    for (int i = 0; i < num_materias; i++) {
+        cout << "Ingresa la materia " << i + 1 << ": ";
+        cin >> materias[i];
+    }
+
+    //llenar matriz con calificaciones
+    for (int y = 0; y < num_materias; y++) {
+        cout << "Ingrese las calificaciones para " << materias[y] << ":" << endl;
+        for (int x = 0; x < 3; x++) {
+            cout << "  Calificacion " << x + 1 << ": ";
+            cin >> cal[y][x];
+        }
+    }
+    cout<<endl<<endl;
+
+   //calcular el promedio
+   for (int y = 0; y < num_materias; y++) {
+        suma = cal[y][0] * 0.2 + cal[y][1] * 0.2; 
+        mult = cal[y][2] * 0.6;
+        promedios[y] = suma + mult;
+
+        
+        entero = (int)(promedios[y]);
+        decimal = promedios[y] - entero; 
+
+        if (decimal >= 0.6) {
+            promedios[y] = entero + 1; // Redondear hacia arriba
+        } else {
+            promedios[y] = entero; // redondear hacia abajo
+        }
+    }
+
+
+   //imprimir la tabla
+    cout << "Materias y sus promedios: "<<endl;
+    for (int y = 0; y < num_materias; y++) {
+        cout << materias[y] << ": ";
+        
+        for (int x = 0; x < 3; x++) {
+            cout <<" | "<< cal[y][x] << " | ";
+        }
+        cout << " Promedio: " << promedios[y] << endl;
+    }
+    cout<<endl<<endl;
+    
+    //encontrar mayor y menor promedio, aprobadas y reprobadas
+    float max=promedios[0];
+    float min=promedios[0];
+    float aprobada=0;
+    float reprobada=0;
+    
+    for (int y = 0; y < num_materias; y++) {
+        
+            if(promedios[y]>max){
+            	max=promedios[y];
+			}
+			if(promedios[y]<min){
+            	min=promedios[y];
+			}
+			if(promedios[y]<6){
+            	reprobada++;
+			}
+			if(promedios[y]>=6){
+            	aprobada++;
+			}
+    }
+    
+    cout<<"tu promedio mas alto es de: "<<max<<endl;
+    cout<<"tu promedio mas bajo es de: "<<min<<endl;
+    cout<<"tienes "<<aprobada<<" materias aprobadas"<<endl;
+    cout<<"tienes "<<reprobada<<" materias reprobadas"<<endl;
+    
+    cout<<endl<<endl;
+ }
+ 
+    return 0;
+}
+  
+   
